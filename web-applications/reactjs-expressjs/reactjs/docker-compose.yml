@@ -1,0 +1,30 @@
+# Salient purpose of a docker-compose file is to automate the process of executing individual Docker CLI
+# statements. Becomes handy when dealing with more than one service! In a docker-compose environment, the network
+# or communication between two or more containers is already in place.
+
+# A version must be specified to signal which version of docker compose to use
+version: "3"
+
+# The 'services' tag reports how many containers to create given a certain specification
+services:
+  # service/container-0 which contains ...
+  frontend: # This is a hostname given to a container, value may be anything
+    build: # Provide context to locate the appropriate Dockerfile
+      context: . # Look in the current working directory
+      dockerfile: Dockerfile.dev # Specify the dockerfile if it is not named "Dockerfile"
+    ports: # defines the host <-> container mapping
+      - "3000:3000" # host_port:container_port -- in this project, the react development server is binding to port 3000 and exposed via port 3000 on the host
+    volumes:
+      - /app/node_modules # If there are any file changes on host, DO NOT remove the reference to these files on the container
+      - .:/app # Map the files/folders in the current working directory to the files/folders on the container
+  # service/container-1 which contains
+  frontend-tests: # A user defined alias/hostname
+    restart: on-failure # defines the container restart policy, has the following values: ( "no" | on-failure | always | unless-stopped )
+    build: # Provide context to locate the appropriate Dockerfile
+      context: . # Look in the current working directory
+      dockerfile: Dockerfile.dev # Specify the dockerfile if it is not named "Dockerfile"
+    # ports not defined here since the test suite is not binding to any port and is highly unnecessary (and potentially dangerous?)
+    volumes:
+      - /app/node_modules # If there are any file changes on host, DO NOT remove the reference to these files on the container
+      - .:/app # Map the files/folders in the current working directory to the files/folders on the container
+    command: ["npm", "run", "test"] # Override the entry point command with ...
