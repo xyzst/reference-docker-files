@@ -6,7 +6,8 @@
 FROM node:alpine
 # LABEL instruction is optional
 LABEL maintainer="Darren Rambaud"
-
+# WORKDIR instruction is optional, however it is best practice specify a working directory to avoid collisions with image file system
+WORKDIR "/app"
 # II: 0 or more instructions to install dependencies on the image or transfer files from host to container
 COPY ./package.json ./
 RUN npm install
