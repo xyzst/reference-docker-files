@@ -1,4 +1,8 @@
-# Instructions
+# For Lost Github Denizens
+
+A reference Docker setup for a simple express.js and redis application which counts the number of visits to the root url.
+
+## Instructions
 
 1. Checkout repository
 2. Navigate to /reference-educational/beginner/nodejs-example
