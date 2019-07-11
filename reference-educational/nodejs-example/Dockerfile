@@ -12,7 +12,7 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 
-# Note: This extra COPY instruction is for copying any source code changes to the container. Does not bust or invalidate the cache for instructions at lines 9 and 10
+# Note: This extra COPY instruction is for copying any source code changes to the container. Does not bust or invalidate the cache for instructions at lines 12 and 13
 COPY . .
 
 # III: Lastly, a command to execute after the image was successfully built
