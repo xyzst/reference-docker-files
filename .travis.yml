@@ -1,0 +1,15 @@
+language: generic
+
+# require sudo priv, docker service to execute build on
+sudo: required
+services:
+  - docker
+
+# build app image w/ dockerfile (dev)
+before_install:
+  - docker build -t dtrambaud/docker-reactjs -f ./web-applications/reactjs-expressjs/reactjs/Dockerfile.dev ./web-applications/reactjs-expressjs/reactjs/
+
+# run test suite
+script:
+  - docker run -e CI=true dtrambaud/docker-reactjs npm run test
+# deploy (to aws)
