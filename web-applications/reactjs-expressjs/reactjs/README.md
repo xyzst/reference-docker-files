@@ -8,3 +8,13 @@ A barebones, dockerized "create react app" application with hot-reloading of cod
 2. Navigate to /web-applications/reactjs-expressjs/reactjs
 3. \$ docker-compose up --build
 4. Navigate to http://localhost:3000
+
+## Development Environment
+
+- Dockerfile.dev
+- Leverages development server provided by 'create react app'
+
+## Production Environment
+
+- Dockerfile
+- Leverages nginx
