@@ -1,0 +1,60 @@
+# Salient purpose of a docker-compose file is to automate the process of executing individual Docker CLI
+# statements. Becomes handy when dealing with more than one service! In a docker-compose environment, the network
+# or communication between two or more containers is already in place.
+
+# A version must be specified to signal which version of docker compose to use
+version: "3"
+
+# The 'services' tag reports how many containers to create given a certain specification
+services:
+  # service/container-0 which contains ...
+  postgres:
+    image: "postgres:latest" # find latest tag of postgres image
+    # by default postgres image exposes 5432
+  # service/container-1 which contains ...
+  redis:
+    image: "redis:latest" # find latest tag of redis image
+    # can specify a port to map the port to, however by default it exposes 6379
+  # service/container-2 which contains ...
+  api:
+    build:
+      dockerfile: Dockerfile.dev # do not need to specify full path to Dockerfile, just the name. Use the context keyword instead
+      context: ./expressjs
+    volumes:
+      - /app/node_modules # On updates/rebuilds, do not map to the host system
+      - ./expressjs:/app # Map expressjs directory to /app on container
+    environment:
+      - REDIS_HOST=redis # specify the host as "redis" since this is already aliased/DNS'd within the docker-compose network
+      - REDIS_PORT=6379
+      - PGUSER=postgres # default user defined by postgres
+      - PGHOST=postgres # see 'postgres' alias
+      - PGDATABASE=postgres # default database
+      - PGPASSWORD=postgres_password # default password
+      - PGPORT=5432
+  # service/container-3 which contains ...
+  client:
+    build:
+      dockerfile: Dockerfile.dev # same note as 'server'
+      context: ./reactjs # same note as 'server'
+    volumes:
+      - /app/node_modules # same note as 'server'
+      - ./reactjs:/app # same note as server
+  # service/container-4 which contains ...
+  worker:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./daemon
+    volumes:
+      - /app/node_modules
+      - ./daemon:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+  # service/container-5 which contains ...
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "81:80"
