@@ -62,7 +62,7 @@ class Fibonnacci extends Component {
         </form>
         <h3>Indexes seen:</h3>
         {this.renderSeenIndexes()}
-        <h3>Calculated values;</h3>
+        <h3>Calculated values:</h3>
         {this.renderValues()}
       </div>
     );
