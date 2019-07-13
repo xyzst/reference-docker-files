@@ -1,0 +1,23 @@
+{
+  "name": "redis-worker",
+  "description": "Daemon process to poll redis instance for new indices, calculates fibonacci sequence, and persists to redis",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xyzst/reference-docker-files.git"
+  },
+  "license": "ISC",
+  "private": true,
+  "author": {
+    "name": "Darren Rambaud",
+    "email": "xyzst@users.noreply.github.com",
+    "url": "https://rambaud.io"
+  },
+  "dependencies": {
+    "nodemon": "1.18.3",
+    "redis": "2.8.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodeman"
+  }
+}
