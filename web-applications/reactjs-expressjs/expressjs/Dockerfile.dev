@@ -21,4 +21,4 @@ RUN npm install
 COPY ./ ./
 
 # III: Lastly, a command to execute after the image was successfully built
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]

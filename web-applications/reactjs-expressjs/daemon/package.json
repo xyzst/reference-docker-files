@@ -18,6 +18,6 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "nodeman"
+    "dev": "nodemon"
   }
 }

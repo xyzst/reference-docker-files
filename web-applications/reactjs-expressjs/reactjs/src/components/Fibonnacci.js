@@ -32,7 +32,7 @@ class Fibonnacci extends Component {
     for (let key in this.state.values) {
       entries.push(
         <div key={key}>
-          For index {key}, I calculted {this.state.values[key]}
+          For index {key}, I calculated {this.state.values[key]}
         </div>
       );
     }
@@ -62,7 +62,7 @@ class Fibonnacci extends Component {
         </form>
         <h3>Indexes seen:</h3>
         {this.renderSeenIndexes()}
-        <h3>Calculated values;</h3>
+        <h3>Calculated values:</h3>
         {this.renderValues()}
       </div>
     );

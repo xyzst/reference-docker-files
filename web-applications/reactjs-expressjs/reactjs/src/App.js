@@ -13,7 +13,8 @@ function App() {
           <img src={logo} className="App-logo" alt="logo" />
         </header>
         <Link to="/">Home</Link>
-        <Link to="/otherpage">Home</Link>
+        &nbsp;
+        <Link to="/otherpage">Other Page</Link>
         <div>
           <Route exact path="/" component={Fibonnacci} />
           <Route exact path="/otherpage" component={OtherPage} />
