@@ -28,20 +28,21 @@ after_success:
   - docker push dtrambaud/multi-nginx
   - docker push dtrambaud/multi-daemon
   - docker push dtrambaud/multi-server
+# Disable deployment to AWS, again
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "us-east-2"
+#   app: "multi-container-docker"
+#   env: "MultiContainerDocker-env"
+#   bucket_name: "elasticbeanstalk-us-east-2-195465432763"
+#   bucket_path: "multi-container-docker"
+#   on:
+#     branch: master
+#   access_key_id:
+#     secure: $AWS_ACCESS_KEY
+#   secret_access_key:
+#     secure: $AWS_SECRET_KEY
 
-deploy:
-  provider: elasticbeanstalk
-  region: "us-east-2"
-  app: "multi-container-docker"
-  env: "MultiContainerDocker-env"
-  bucket_name: "elasticbeanstalk-us-east-2-195465432763"
-  bucket_path: "multi-container-docker"
-  on:
-    branch: master
-  access_key_id:
-    secure: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: $AWS_SECRET_KEY
 # Deploy to single container instance ...
 # deploy (to aws)
 # deploy:
