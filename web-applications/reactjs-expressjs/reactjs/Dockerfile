@@ -26,8 +26,9 @@ RUN npm run build
 
 # Begin second phase ...
 FROM nginx
-# Need to expose 80 directly to deploy to AWS elastic beanstalk
-EXPOSE 80
+# Leverage nginx to serve static html/css (reactjs project). Much easier to scale, rather than having the router nginx container serve static content and route the requests
+EXPOSE 3000
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 # Copy generated artifact from builder phase. With this nginx image, static content must be copied to /usr/share/nginx/html
 # see: https://hub.docker.com/_/nginx
 COPY --from=builder /app/build /usr/share/nginx/html
