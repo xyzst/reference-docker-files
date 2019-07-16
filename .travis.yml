@@ -6,12 +6,29 @@ services:
   - docker
 
 # build app image w/ dockerfile (dev)
+# dev version of the project has the test files
 before_install:
   - docker build -t dtrambaud/docker-reactjs -f ./web-applications/reactjs-expressjs/reactjs/Dockerfile.dev ./web-applications/reactjs-expressjs/reactjs/
+# If there are tests for other components, would need to modify associated Dockerfiles and add the build/execution step here
 
 # run test suite
 script:
   - docker run -e CI=true dtrambaud/docker-reactjs npm run test
+# same here, add run command and image to reference
+
+after_success:
+  - docker build -t dtrambaud/multi-client ./web-applications/reactjs-expressjs/reactjs
+  - docker build -t dtrambaud/multi-nginx ./web-applications/reactjs-expressjs/nginx
+  - docker build -t dtrambaud/multi-daemon ./web-applications/reactjs-expressjs/daemon
+  - docker build -t dtrambaud/multi-server ./web-applications/reactjs-expressjs/expressjs
+  # Log in to the docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # push images to docker hub (or private registry)
+  - docker push dtrambaud/multi-client
+  - docker push dtrambaud/multi-nginx
+  - docker push dtrambaud/multi-daemon
+  - docker push dtrambaud/multi-server
+# Deploy to single container instance ...
 # deploy (to aws)
 # deploy:
 #   provider: elasticbeanstalk
