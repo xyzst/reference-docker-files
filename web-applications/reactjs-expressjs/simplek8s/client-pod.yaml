@@ -1,0 +1,17 @@
+# The apiVersion refers to the scope of the objects can be created
+# in v1, can create certain objects (componentStatus, configMap, Endpoints, ...)
+# in apps/v1, can create ControllerRevision, StatefulSet and possibly many more!
+apiVersion: v1
+# kind can be equal to (StatefulSet | ReplicaController | Pod | Service)
+# These refer to "objects" which serve different purposes (eg, a Pod runs a container or a Service sets up networking)
+kind: Pod # Why 'Pod'? A pod consists of one or more containers (often share a common purpose) in a node or virtual machine. Best case scenario, largely coupled containers should be grouped in a Pod
+metadata:
+  name: client-pod # Mainly referenced in logs, kubectl
+  labels:
+    component: web # To be referenced in other k8s config files ("component" key is arbitrary, can be anything)
+spec: # Create a "Pod"
+  containers: # With {1...n} number of containers
+    - name: client # container0 with 'client' as a label or alias (can be referenced between containers in this Pod)
+      image: dtrambaud/multi-client # The image to use hosted on docker hub (or private registry?)
+      ports:
+        - containerPort: 3000 # Expose this port to public since application is listening on this port. DOES NOT GIVE ACCESS TO CONTAINER (see client-node-port.yaml)
