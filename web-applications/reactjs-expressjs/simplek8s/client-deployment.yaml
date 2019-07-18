@@ -21,6 +21,6 @@ spec: # Create a "Deployment"
     spec:
       containers:
         - name: client
-          image: dtrambaud/multi-client
+          image: dtrambaud/multi-client # If the image is updated and the yaml file is unchanged, k8s wont redeploy the nodes w/ latest version of image
           ports:
             - containerPort: 3000
