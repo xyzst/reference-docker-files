@@ -8,4 +8,4 @@ A repository of optimized Docker related files for various types of environments
 
 1. reactjs, expressjs, redis, postgres (./web-applications/reactjs-expressjs)
 
-2. more coming soon!
+2. more coming soon!?
