@@ -1,0 +1,26 @@
+# The apiVersion refers to the scope of the objects can be created
+# in v1, can create certain objects (componentStatus, configMap, Endpoints, ...)
+# in apps/v1, can create ControllerRevision, StatefulSet and possibly many more!
+apiVersion: apps/v1
+# kind can be equal to (StatefulSet | ReplicaController | Pod | Service)
+# These refer to "objects" which serve different purposes (eg, a Pod runs a container or a Service sets up networking)
+kind: Deployment # Much better object for declarative approach (config updates)
+metadata:
+  name: client-deployment # Mainly referenced in logs, kubectl
+  # labels:
+  #   component: web # To be referenced in other k8s config files ("component" key is arbitrary, can be anything)
+spec: # Create a "Deployment"
+  replicas: 1 # Number of identical pods to create
+  selector: # similar to service object
+    matchLabels: # which pod to create by ...
+      component: web # alias defined in other pod(s)
+  template: # {pod template}
+    metadata: # replicates above, but may be needed for fine grained selection
+      labels:
+        component: web
+    spec:
+      containers:
+        - name: client
+          image: dtrambaud/multi-client
+          ports:
+            - containerPort: 3000
