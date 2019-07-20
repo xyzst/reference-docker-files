@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-class Fibonnacci extends Component {
+class Fibonacci extends Component {
   state = {
     seenIndexes: [],
     values: {},
@@ -69,4 +69,4 @@ class Fibonnacci extends Component {
   }
 }
 
-export default Fibonnacci;
+export default Fibonacci;

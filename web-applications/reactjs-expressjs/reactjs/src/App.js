@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Fibonnacci from "./components/Fibonnacci";
+import Fibonacci from "./components/Fibonacci";
 import OtherPage from "./components/OtherPage";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         &nbsp;
         <Link to="/otherpage">Other Page</Link>
         <div>
-          <Route exact path="/" component={Fibonnacci} />
+          <Route exact path="/" component={Fibonacci} />
           <Route exact path="/otherpage" component={OtherPage} />
         </div>
       </div>

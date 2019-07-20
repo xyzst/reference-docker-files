@@ -1,0 +1,18 @@
+# The apiVersion refers to the scope of the objects can be created
+# in v1, can create certain objects (componentStatus, configMap, Endpoints, ...)
+# in apps/v1, can create ControllerRevision, StatefulSet and possibly many more!
+apiVersion: v1
+# kind can be equal to (StatefulSet | ReplicaController | Pod | Service)
+# These refer to "objects" which serve different purposes (eg, a Pod runs a container or a Service sets up networking)
+kind: Service # Sets up networking in a Kubernetes cluster. Defines rules to expose cluster to public as well as rules for container/pod communication
+metadata:
+  name: client-node-port
+spec:
+  # type: (ClusterIP | NodePort | LoadBalancer | Ingress)
+  type: NodePort # NodePort is typically used for development purposes! Not many exceptions
+  ports: # Given the {component selector}, redirect traffic as defined below on target object
+    - port: 3050 # Refers to the port that another pod can access the {component selector}
+      targetPort: 3000 # Must match the {component selector} in question
+      nodePort: 31515 # If not specified, will assign random between 30000-32767. The port which will be used to access cluster (ip_address:31515)
+  selector:
+    component: web # alias/label created by client-pod
