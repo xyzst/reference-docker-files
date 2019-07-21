@@ -15,5 +15,3 @@ spec:
       containers:
         - name: daemon
           image: dtrambaud/multi-daemon
-          ports:
-            - containerPort: 3000
