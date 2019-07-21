@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: daemon-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: daemon
+  template:
+    metadata:
+      labels:
+        component: daemon
+    spec:
+      containers:
+        - name: daemon
+          image: dtrambaud/multi-daemon
+          ports:
+            - containerPort: 3000
