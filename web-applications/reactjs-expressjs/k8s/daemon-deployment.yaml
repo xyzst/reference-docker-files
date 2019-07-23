@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: daemon-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: daemon
+  template:
+    metadata:
+      labels:
+        component: daemon
+    spec:
+      containers:
+        - name: daemon
+          image: dtrambaud/multi-daemon
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+            - name: REDIS_PORT
+              value: '6379' # ints must be provided as strings
