@@ -1,4 +1,4 @@
-#apiVersion: extensions/v1beta1 # ? deprecated ?
+#apiVersion: extensions/v1beta1 # deprecated (if using kubectl: >1.15.0)
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
