@@ -3,6 +3,10 @@ language: generic
 sudo: required
 services:
   - docker
+env:
+  global:
+    - SHA=$(git rev-parse HEAD)
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
 #  - openssl aes-256-cbc -K ... # decrypt .enc file command from travis cli
   - curl https://sdk.cloud.google.com | bash > /dev/null; # download and install google cloud sdk
@@ -13,7 +17,13 @@ before_install:
   - gcloud config set compute/zone <some_zone for cluster> # specify compute zone
   - gcloud container clusters get-credentials <cluster_name> # only deploy to this cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin # referencing environment variables in travis env
-  - docker build -t dtrambaud/<some_temp_tag> -f <relative_path_to_dockerFile> <buildContext>
+  - docker build -t dtrambaud/react-tests -f ./web-applications/reactjs-expressjs/reactjs/Dockerfile.dev ./web-applications/reactjs-expressjs/reactjs/
 
 script:
-  - docker run dtrambaud<some_temp_tag> npm run test
+  - docker run dtrambaud/react-tests npm run test
+
+deploy:
+  provider: script
+  script: bash ./deploy.sh # custom deployment file to deploy to GCP or other cloud provider
+  on:
+    branch: master
