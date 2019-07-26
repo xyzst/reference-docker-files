@@ -13,7 +13,7 @@ before_install:
   - source $HOME/google-cloud-sdk/path.bash.inc # load functions from this file
   - gcloud components update kubectl # get the latest kubectl
   - gcloud auth activate-service-account --key-file service-account.json # service-account.json file from GCP, encrypted & installed to travis ci server
-  - gcloud config set project <id associated with project>
+  - gcloud config set project <id associated with project> # can re-use these commands for configuring via GCP cloud shell
   - gcloud config set compute/zone <some_zone for cluster> # specify compute zone
   - gcloud container clusters get-credentials <cluster_name> # only deploy to this cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin # referencing environment variables in travis env
