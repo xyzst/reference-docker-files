@@ -7,6 +7,7 @@ env:
   global:
     - SHA=$(git rev-parse HEAD)
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+
 before_install:
 #  - openssl aes-256-cbc -K ... # decrypt .enc file command from travis cli
   - curl https://sdk.cloud.google.com | bash > /dev/null; # download and install google cloud sdk
