@@ -1,0 +1,20 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: k8s-multi-com-tls
+spec:
+  secretName: k8s-multi-com
+  issuerRef:
+    name: letencrypt-prod
+    kind: ClusterIssuer
+  commonName: some-domain.com # CHANGE THIS!
+  dnsNames:
+    - some-domain.com # must include both
+    - www.some-domain.com
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - some-domain.com
+          - www.some-domain.com
